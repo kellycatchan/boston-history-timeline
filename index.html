@@ -82,7 +82,7 @@
   <button onclick="checkOrder()">Check Order</button>
 
 
-  <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
   <script>
     new Sortable(document.getElementById('events'), { animation: 150 });
     
@@ -94,17 +94,23 @@
       let correct = true;
 
       cards.forEach((card, i) => {
-        card.classList.remove('correct', 'incorrect');
-        if (parseInt(card.dataset.order) === i + 1) {
-          card.classList.add('correct');
-          card.innerHTML += `<strong>(${card.dataset.year})</strong>`;
-        } else {
-          card.classList.add('incorrect');
-          correct = false;
-        }
+      card.classList.remove('correct', 'incorrect');
+        
+      card.innerHTML = card.textContent.split('(')[0].trim();
+
+      if (parseInt(card.dataset.order) === i + 1) {
+          card.classList.add('correct');
+     
+          if (!card.textContent.includes(card.dataset.year)) {
+            card.innerHTML += ` <strong>(${card.dataset.year})</strong>`;
+          }
+      } else {
+          card.classList.add('incorrect');
+          correct = false;
+      }
+      });
+
       document.getElementById('tries-counter').textContent = "Number of tries: " + tries;
-      }
-      );
 
       const banner = document.getElementById('result-banner');
       banner.style.display = 'block';
@@ -116,7 +122,6 @@
         banner.className = 'banner-incorrect';
       }
 
-      // Smooth scroll down to show the banner
       banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   </script>
