@@ -82,9 +82,9 @@
   <button onclick="checkOrder()">Check Order</button>
 
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
   <script>
-    new Sortable(events, { animation: 150 });
+    new Sortable(document.getElementById('events'), { animation: 150 });
     
     let tries = 0;
 
